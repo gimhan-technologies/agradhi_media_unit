@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agradhi Media Unit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2980b9;
+            --accent: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --white: #ffffff;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Header Section */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .header-shrink {
+            padding: 10px 0;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: var(--white);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            margin-left: 15px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--dark);
+        }
+        
+        /* About Section */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        
+        /* Services Section */
+        .services {
+            background-color: var(--white);
+        }
+        
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-card:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover .service-icon {
+            color: var(--white);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover h3 {
+            color: var(--white);
+        }
+        
+        .service-card p {
+            color: var(--gray);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover p {
+            color: var(--light);
+        }
+        
+        /* Portfolio Section */
+        .portfolio-years {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .year-box {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 280px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        
+        .year-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .year-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .year-box:hover .year-overlay {
+            opacity: 1;
+        }
+        
+        .year-box:hover .year-image {
+            transform: scale(1.1);
+        }
+        
+        .year-overlay h3 {
+            color: var(--white);
+            font-size: 2rem;
+            margin-bottom: 15px;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .year-overlay .btn {
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease;
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+        
+        .year-box:hover .year-overlay h3,
+        .year-box:hover .year-overlay .btn {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* How We Work Section */
+        .work-process {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('/api/placeholder/1200/600') center/cover fixed;
+            color: var(--white);
+        }
+        
+        .process-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .process-item {
+            position: relative;
+            width: 250px;
+            text-align: center;
+            padding-bottom: 30px;
+        }
+        
+        .process-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid var(--primary);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .process-item:hover::after {
+            opacity: 1;
+        }
+        
+        .process-icon {
+            width: 100px;
+            height: 100px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .process-item:hover .process-icon {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.7);
+        }
+        
+        .process-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .process-item p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--light);
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .testimonial-slide {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .testimonial {
+            min-width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .testimonial-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 5px solid var(--light);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .testimonial-content {
+            position: relative;
+            padding: 25px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-content::before {
+            content: '\201C';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--primary);
+            font-family: Georgia, serif;
+            opacity: 0.3;
+        }
+        
+        .testimonial-content p {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.8;
+        }
+        
+        .testimonial-name {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-position {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .testimonial-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-btn:hover {
+            background-color: var(--secondary);
+            transform: scale(1.1);
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: var(--white);
+        }
+        
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--dark);
+        }
+        
+        .contact-info p {
+            margin-bottom: 30px;
+            line-height: 1.8;
+            color: var(--gray);
+        }
+        
+        .contact-details {
+            list-style: none;
+        }
+        
+        .contact-details li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-icon {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-right: 15px;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-details li:hover .contact-icon {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .contact-details li a {
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-details li:hover a {
+            color: var(--primary);
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+            outline: none;
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .submit-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 70px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .footer-logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .footer-about p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .footer-subscribe p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .subscribe-form {
+            display: flex;
+        }
+        
+        .subscribe-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 0.9rem;
+        }
+        
+        .subscribe-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0 15px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .subscribe-btn:hover {
+            background-color: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 1000px;
+            height: 90%;
+            max-height: 800px;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.7);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .modal-header {
+            padding: 20px;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .gallery-info {
+            padding: 15px;
+            background-color: var(--white);
+        }
+        
+        .gallery-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .gallery-info p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .facebook-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4267B2;
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .facebook-link:hover {
+            background-color: #3b5998;
+            transform: translateY(-3px);
+        }
+        
+        .facebook-link i {
+            margin-right: 8px;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .about-text h3 {
+                font-size: 1.6rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 20px 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .about-content, .contact-container {
+                flex-direction: column;
+            }
+            
+            .process-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .process-item {
+                width: 100%;
+                max-width: 300px;
+                margin-bottom: 40px;
+            }
+            
+            .process-item::after {
+                display: none;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+                text-align: center;
+            }
+            
+            .btn-secondary {
+                margin-left: 0;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .gallery-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+       .social-section {
+      background: lightblack;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .social-section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 2rem;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.1);
+    }
+
+    .youtube {
+      background: #FF0000;
+    }
+
+    .facebook {
+      background: #1877F2;
+    }
+
+    .whatsapp {
+      background: #25D366;
+    }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="/api/placeholder/50/50" alt="Agradhi Media Unit Logo">
+                    <div class="logo-text">Agradhi Media Unit</div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#process">Our Process</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Welcome to Agradhi Media Unit</h1>
+            <p>Creating memorable visual experiences through creative storytelling, innovative design, and cutting-edge technology.</p>
+            <div class="hero-buttons">
+                <a href="#portfolio" class="btn">View Our Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Us</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-image" data-aos="fade-right">
+                    <img src="/api/placeholder/600/400" alt="Agradhi Media Unit Team">
+                </div>
+                <div class="about-text" data-aos="fade-left">
+                    <h3>School's Premier Media Team</h3>
+                    <p>Agradhi Media Unit is the official media team of our school, dedicated to capturing and showcasing the vibrant life of our campus through various forms of media. Our talented team of students works under the guidance of experienced faculty to document school events, create promotional materials, and develop engaging content for our community.</p>
+                    <p>With a passion for creativity and a commitment to excellence, we strive to provide professional-quality media services while offering students valuable hands-on experience in photography, videography, graphic design, audio production, and more.</p>
+                    <a href="#services" class="btn">Our Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+            </div>
+            <div class="services-container">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="service-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Photography</h3>
+                    <p>Professional coverage of school events, portraits, and creative photography for various school publications and archives.</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="service-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Videography</h3>
+                    <p>High-quality video production for school events, promotional videos, documentaries, and creative projects.</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Graphic Design</h3>
+                    <p>Eye-catching posters, flyers, banners, social media graphics, and other visual materials for school communications.</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="service-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h3>Morning Radio</h3>
+                    <p>Daily broadcasts featuring school news, announcements, music, and student-created content for the entire school community.</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="service-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3>Content Creation</h3>
+                    <p>Engaging content for school website, social media channels, newsletters, and other communication platforms.</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="service-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h3>Video Editing</h3>
+                    <p>Professional editing services for school videos, including color grading, special effects, and post-production work.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Portfolio</h2>
+            </div>
+            <div class="portfolio-years">
+                <div class="year-box" data-year="2025" data-aos="fade-up" data-aos-delay="100">
+                    <img src="/api/placeholder/400/320" alt="2025 Collection" class="year-image">
+                    <div class="year-overlay">
+                        <h3>2025</h3>
+                        <a href="#" class="btn year-btn">View Gallery</a>
+                    </div>
+                </div>
+                <div class="year-box" data-year="2024" data-aos="fade-up" data-aos-delay="200">
+                    <img src="/api/placeholder/400/320" alt="2024 Collection" class="year-image">
+                    <div class="year-overlay">
+                        <h3>2024</h3>
+                        <a href="#" class="btn year-btn">View Gallery</a>
+                    </div>
+                </div>
+                <div class="year-box" data-year="2023" data-aos="fade-up" data-aos-delay="300">
+                    <img src="/api/placeholder/400/320" alt="2023 Collection" class="year-image">
+                    <div class="year-overlay">
+                        <h3>2023</h3>
+                        <a href="#" class="btn year-btn">View Gallery</a>
+                    </div>
+                </div>
+                <div class="year-box" data-year="2022" data-aos="fade-up" data-aos-delay="400">
+                    <img src="/api/placeholder/400/320" alt="2022 Collection" class="year-image">
+                    <div class="year-overlay">
+                        <h3>2022</h3>
+                        <a href="#" class="btn year-btn">View Gallery</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How We Work Section -->
+    <section class="work-process" id="process">
+        <div class="container">
+            <div class="section-title">
+                <h2>How We Work</h2>
+            </div>
+            <div class="process-container">
+                <div class="process-item" data-aos="fade-right" data-aos-delay="100">
+                    <div class="process-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Ideation</h3>
+                    <p>We brainstorm creative concepts that align with the school's vision and meet specific communication needs.</p>
+                </div>
+                <div class="process-item" data-aos="fade-right" data-aos-delay="200">
+                    <div class="process-icon">
+                        <i class="fas fa-pencil-alt"></i>
+                    </div>
+                    <h3>Planning</h3>
+                    <p>We develop detailed production plans, including schedules, equipment needs, and resource allocation.</p>
+                </div>
+                <div class="process-item" data-aos="fade-right" data-aos-delay="300">
+                    <div class="process-icon">
+                        <i class="fas fa-camera-retro"></i>
+                    </div>
+                    <h3>Production</h3>
+                    <p>Our team executes the plan with professional equipment and techniques to capture high-quality content.</p>
+                </div>
+                <div class="process-item" data-aos="fade-right" data-aos-delay="400">
+                    <div class="process-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3>Post-Production</h3>
+                    <p>We carefully edit and enhance the raw content, applying creative techniques to achieve the desired outcome.</p>
+                </div>
+                <div class="process-item" data-aos="fade-right" data-aos-delay="500">
+                    <div class="process-icon">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <h3>Distribution</h3>
+                    <p>The final content is shared through appropriate channels, including our Facebook page, school website, and physical displays.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Testimonials</h2>
+            </div>
+            <div class="testimonial-container">
+                <div class="testimonial-slide">
+                    <div class="testimonial">
+                        <div class="testimonial-image">
+                            <img src="/api/placeholder/100/100" alt="Principal">
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"The Agradhi Media Unit has transformed how our school communicates and preserves memories. Their professionalism and creativity consistently impress everyone in our community."</p>
+                            <h4 class="testimonial-name">Dr. Rajesh Kumar</h4>
+                            <p class="testimonial-position">School Principal</p>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-image">
+                            <img src="/api/placeholder/100/100" alt="Teacher">
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"Working with our talented students in the Media Unit has been incredibly rewarding. Their dedication to excellence and willingness to learn new technologies make them an invaluable asset to our school."</p>
+                            <h4 class="testimonial-name">Ms. Priya Sharma</h4>
+                            <p class="testimonial-position">Faculty Advisor</p>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-image">
+                            <img src="/api/placeholder/100/100" alt="Student">
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"Being part of the Agradhi Media Unit has given me real-world experience in photography and design. The skills I've developed here have already helped me win several inter-school competitions."</p>
+                            <h4 class="testimonial-name">Arjun Mehta</h4>
+                            <p class="testimonial-position">Student Member</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-nav">
+                    <div class="testimonial-btn prev-btn">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <div class="testimonial-btn next-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="social-section">
+    <h2>Connect With Us</h2>
+    <div class="social-icons">
+      <!-- YouTube -->
+      <a href="https://www.youtube.com/@yourchannel" class="youtube" target="_blank" title="Visit our YouTube Channel">
+        <i class="fab fa-youtube"></i>
+      </a>
+
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/yourpage" class="facebook" target="_blank" title="Visit our Facebook Page">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/yourwhatsapplink" class="whatsapp" target="_blank" title="Join our WhatsApp Channel">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </div>
+  </section>
+
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info" data-aos="fade-right">
+                    <h3>Get In Touch</h3>
+                    <p>Have a question or want to request our services? Reach out to us using the contact information below or fill out the form, and we'll get back to you as soon as possible.</p>
+                    <ul class="contact-details">
+                        <li>
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <span>Agradhi School Campus, Education Road, City</span>
+                        </li>
+                        <li>
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <a href="mailto:media@agradhischool.edu">media@agradhischool.edu</a>
+                        </li>
+                        <li>
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <a href="tel:+1234567890">+123 456 7890</a>
+                        </li>
+                        <li>
+                            <div class="contact-icon">
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <a href="https://facebook.com/" target="_blank">Follow us on Facebook</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="contact-form" data-aos="fade-left">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="/api/placeholder/40/40" alt="Agradhi Media Unit Logo">
+                        <div class="footer-logo-text">Agradhi Media</div>
+                    </div>
+                    <p>We are the creative force behind our school's visual and audio communications, dedicated to capturing moments and sharing stories that inspire and connect our community.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="#portfolio"><i class="fas fa-chevron-right"></i> Portfolio</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3 class="footer-title">Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Photography</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Videography</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Graphic Design</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Morning Radio</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Video Editing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-subscribe">
+                    <h3 class="footer-title">Newsletter</h3>
+                    <p>Subscribe to receive updates about our latest work and upcoming events.</p>
+                    <form class="subscribe-form">
+                        <input type="email" class="subscribe-input" placeholder="Your Email" required>
+                        <button type="submit" class="subscribe-btn"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Agradhi Media Unit. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Year Gallery Modal -->
+    <div class="modal" id="galleryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Year Gallery</h2>
+                <div class="modal-close"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="modal-body">
+                <div class="gallery-container" id="galleryContainer">
+                    <!-- Gallery items will be added dynamically -->
+                </div>
+                <a href="https://facebook.com/" class="facebook-link" target="_blank"><i class="fab fa-facebook-f"></i> View More on Facebook</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                mirror: false
+            });
+            
+            // Header scroll effect
+            const header = document.querySelector('header');
+            const logo = document.querySelector('.logo img');
+            const logoText = document.querySelector('.logo-text');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    header.classList.add('header-shrink');
+                    logo.style.height = '40px';
+                    logoText.style.fontSize = '1.3rem';
+                } else {
+                    header.classList.remove('header-shrink');
+                    logo.style.height = '50px';
+                    logoText.style.fontSize = '1.5rem';
+                }
+                
+                // Show/hide back to top button
+                const backToTop = document.querySelector('.back-to-top');
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('active');
+                } else {
+                    backToTop.classList.remove('active');
+                }
+            });
+            
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                menuToggle.querySelector('i').classList.toggle('fa-bars');
+                menuToggle.querySelector('i').classList.toggle('fa-times');
+            });
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                    menuToggle.querySelector('i').classList.add('fa-bars');
+                    menuToggle.querySelector('i').classList.remove('fa-times');
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    
+                    if (target) {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const elementPosition = target.offsetTop;
+                        const offsetPosition = elementPosition - headerHeight;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Back to top button functionality
+            document.querySelector('.back-to-top').addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Testimonial slider
+            const testimonialSlide = document.querySelector('.testimonial-slide');
+            const testimonials = document.querySelectorAll('.testimonial');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            let currentIndex = 0;
+            
+            // Set initial position
+            updateTestimonialPosition();
+            
+            function updateTestimonialPosition() {
+                testimonialSlide.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+            
+            prevBtn.addEventListener('click', function() {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : testimonials.length - 1;
+                updateTestimonialPosition();
+            });
+            
+            nextBtn.addEventListener('click', function() {
+                currentIndex = (currentIndex < testimonials.length - 1) ? currentIndex + 1 : 0;
+                updateTestimonialPosition();
+            });
+            
+            // Auto slide testimonials
+            setInterval(function() {
+                currentIndex = (currentIndex < testimonials.length - 1) ? currentIndex + 1 : 0;
+                updateTestimonialPosition();
+            }, 5000);
+            
+            // Year gallery modal
+            const modal = document.getElementById('galleryModal');
+            const modalClose = document.querySelector('.modal-close');
+            const yearBoxes = document.querySelectorAll('.year-box');
+            const modalTitle = document.querySelector('.modal-title');
+            const galleryContainer = document.getElementById('galleryContainer');
+            
+            // Year box click event
+            yearBoxes.forEach(box => {
+                box.addEventListener('click', function() {
+                    const year = this.getAttribute('data-year');
+                    
+                    // Update modal title
+                    modalTitle.textContent = `${year} Gallery`;
+                    
+                    // Clear previous gallery items
+                    galleryContainer.innerHTML = '';
+                    
+                    // Create gallery items (sample data)
+                    const events = [
+                        {title: 'Annual Day Celebration', description: 'School annual day photography and videography'},
+                        {title: 'Sports Meet', description: 'Inter-house sports competition coverage'},
+                        {title: 'Science Exhibition', description: 'Student projects and innovations'},
+                        {title: 'Cultural Festival', description: 'Dance, music, and theatrical performances'},
+                        {title: 'Teachers Day', description: 'Special program organized by students'},
+                        {title: 'Graduation Ceremony', description: 'Farewell to outgoing senior students'}
+                    ];
+                    
+                    // Generate gallery items
+                    events.forEach((event, index) => {
+                        const galleryItem = document.createElement('div');
+                        galleryItem.className = 'gallery-item';
+                        galleryItem.innerHTML = `
+                            <img src="/api/placeholder/300/200" alt="${event.title}" class="gallery-image">
+                            <div class="gallery-info">
+                                <h4>${event.title}</h4>
+                                <p>${event.description}</p>
+                            </div>
+                        `;
+                        galleryContainer.appendChild(galleryItem);
+                    });
+                    
+                    // Show modal
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // Close modal
+            modalClose.addEventListener('click', function() {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close modal if clicked outside content
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Contact form submission
+            const contactForm = document.getElementById('contactForm');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Form validation
+                const formElements = this.elements;
+                let isValid = true;
+                
+                for (let i = 0; i < formElements.length; i++) {
+                    if (formElements[i].hasAttribute('required') && !formElements[i].value.trim()) {
+                        isValid = false;
+                        formElements[i].classList.add('error');
+                    } else {
+                        formElements[i].classList.remove('error');
+                    }
+                }
+                
+                if (isValid) {
+                    // In a real website, you would send form data to a server here
+                    alert('Thank you for your message! We will get back to you soon.');
+                    contactForm.reset();
+                } else {
+                    alert('Please fill all required fields.');
+                }
+            });
+            
+            // Fade in elements when scrolled into view
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            function checkFade() {
+                fadeElements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', checkFade);
+            checkFade(); // Check on page load
+        });
+    </script>
+</body>
+</html>
