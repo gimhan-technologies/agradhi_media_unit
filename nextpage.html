@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Agradhi Media Unit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css">
+    <style>
+        :root {
+            --primary: #25D366;
+            --secondary: #128C7E;
+            --accent: #075E54;
+            --dark: #333333;
+            --light: #f0f2f5;
+            --white: #ffffff;
+            --gray: #667781;
+            --whatsapp-bg: #e6ffe6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        /* WhatsApp-style Banner */
+        .wa-banner {
+            background-color: var(--accent);
+            height: 180px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .wa-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(18,140,126,0.8) 0%, rgba(37,211,102,0.6) 100%);
+        }
+        
+        .wa-logo-container {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1001;
+            text-align: center;
+        }
+        
+        .wa-logo-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            border: 5px solid var(--white);
+        }
+        
+        .wa-logo-circle img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .wa-logo-text {
+            margin-top: 60px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            white-space: nowrap;
+        }
+        
+        /* Main Content */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 100px auto 50px;
+        }
+        
+        /* Gallery Header */
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .gallery-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .gallery-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .gallery-header p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+        
+        /* Year Filter */
+        .year-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .year-btn {
+            padding: 8px 20px;
+            background-color: var(--white);
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .year-btn:hover, .year-btn.active {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            aspect-ratio: 4/3;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay h3 {
+            color: var(--white);
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .gallery-overlay p {
+            color: #eee;
+            font-size: 0.9rem;
+        }
+        
+        /* Facebook Integration */
+        .facebook-section {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        
+        .facebook-section h2 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .facebook-section p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .facebook-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 25px;
+            background-color: #4267B2;
+            color: var(--white);
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .facebook-btn:hover {
+            background-color: #3b5998;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(59,89,152,0.3);
+        }
+        
+        .facebook-btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* Load More Button */
+        .load-more {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .load-btn {
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .load-btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37,211,102,0.3);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .wa-banner {
+                height: 150px;
+            }
+            
+            .wa-logo-circle {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .wa-logo-circle img {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .wa-logo-text {
+                margin-top: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .container {
+                margin-top: 80px;
+            }
+            
+            .gallery-header h1 {
+                font-size: 2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- WhatsApp-style Banner -->
+    <div class="wa-banner">
+        <div class="wa-logo-container">
+            <div class="wa-logo-circle">
+                <img src="/api/placeholder/100/100" alt="Agradhi Media Unit Logo">
+            </div>
+            <div class="wa-logo-text">Agradhi Media Unit</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="gallery-header">
+            <h1>Our Gallery</h1>
+            <p>Explore our collection of memorable moments captured throughout the years. From school events to special occasions, we've documented it all.</p>
+            
+            <div class="year-filter">
+                <button class="year-btn active">All</button>
+                <button class="year-btn">2025</button>
+                <button class="year-btn">2024</button>
+                <button class="year-btn">2023</button>
+                <button class="year-btn">2022</button>
+            </div>
+        </div>
+        
+        <!-- Gallery Grid -->
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Item 1 -->
+            <div class="gallery-item" data-year="2025" data-category="events">
+                <img src="/api/placeholder/400/300" alt="Annual Day 2025">
+                <div class="gallery-overlay">
+                    <h3>Annual Day 2025</h3>
+                    <p>Cultural performances by students</p>
+                </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="gallery-item" data-year="2025" data-category="sports">
+                <img src="/api/placeholder/400/300" alt="Sports Meet 2025">
+                <div class="gallery-overlay">
+                    <h3>Sports Meet 2025</h3>
+                    <p>Inter-house competitions</p>
+                </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="gallery-item" data-year="2024" data-category="events">
+                <img src="/api/placeholder/400/300" alt="Science Exhibition 2024">
+                <div class="gallery-overlay">
+                    <h3>Science Exhibition 2024</h3>
+                    <p>Student innovations showcase</p>
+                </div>
+            </div>
+            
+            <!-- Item 4 -->
+            <div class="gallery-item" data-year="2024" data-category="academics">
+                <img src="/api/placeholder/400/300" alt="Graduation 2024">
+                <div class="gallery-overlay">
+                    <h3>Graduation 2024</h3>
+                    <p>Senior farewell ceremony</p>
+                </div>
+            </div>
+            
+            <!-- Item 5 -->
+            <div class="gallery-item" data-year="2023" data-category="events">
+                <img src="/api/placeholder/400/300" alt="Teachers Day 2023">
+                <div class="gallery-overlay">
+                    <h3>Teachers Day 2023</h3>
+                    <p>Special program for teachers</p>
+                </div>
+            </div>
+            
+            <!-- Item 6 -->
+            <div class="gallery-item" data-year="2023" data-category="sports">
+                <img src="/api/placeholder/400/300" alt="Basketball Tournament 2023">
+                <div class="gallery-overlay">
+                    <h3>Basketball Tournament 2023</h3>
+                    <p>Inter-school championship</p>
+                </div>
+            </div>
+            
+            <!-- Item 7 -->
+            <div class="gallery-item" data-year="2022" data-category="events">
+                <img src="/api/placeholder/400/300" alt="Founder's Day 2022">
+                <div class="gallery-overlay">
+                    <h3>Founder's Day 2022</h3>
+                    <p>School anniversary celebration</p>
+                </div>
+            </div>
+            
+            <!-- Item 8 -->
+            <div class="gallery-item" data-year="2022" data-category="academics">
+                <img src="/api/placeholder/400/300" alt="Debate Competition 2022">
+                <div class="gallery-overlay">
+                    <h3>Debate Competition 2022</h3>
+                    <p>Inter-house debate finals</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Load More Button -->
+        <div class="load-more">
+            <button class="load-btn">Load More</button>
+        </div>
+        
+        <!-- Facebook Integration Section -->
+        <div class="facebook-section">
+            <h2>More on Facebook</h2>
+            <p>We regularly update our Facebook page with photos, videos, and announcements. Follow us to stay updated with all school events and activities.</p>
+            <a href="https://facebook.com/agradhimedia" class="facebook-btn" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+                Visit Our Facebook Page
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Year filter functionality
+            const yearBtns = document.querySelectorAll('.year-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            yearBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    yearBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const year = this.textContent;
+                    
+                    // Filter gallery items
+                    galleryItems.forEach(item => {
+                        if (year === 'All' || item.getAttribute('data-year') === year) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // LightGallery initialization
+            lightGallery(document.getElementById('galleryGrid'), {
+                selector: '.gallery-item',
+                download: false,
+                share: false,
+                actualSize: false
+            });
+            
+            // Load more functionality
+            const loadBtn = document.querySelector('.load-btn');
+            let currentItems = 8;
+            
+            loadBtn.addEventListener('click', function() {
+                // In a real implementation, you would load more items from server
+                // This is just a demo of how it would work
+                const items = [
+                    {
+                        year: '2021',
+                        category: 'events',
+                        title: 'Annual Day 2021',
+                        desc: 'Cultural performances'
+                    },
+                    {
+                        year: '2021',
+                        category: 'sports',
+                        title: 'Athletics Meet 2021',
+                        desc: 'Track and field events'
+                    },
+                    {
+                        year: '2020',
+                        category: 'academics',
+                        title: 'Science Fair 2020',
+                        desc: 'Student projects exhibition'
+                    },
+                    {
+                        year: '2020',
+                        category: 'events',
+                        title: 'Christmas Celebration 2020',
+                        desc: 'Holiday program'
+                    }
+                ];
+                
+                const galleryGrid = document.getElementById('galleryGrid');
+                
+                items.forEach(item => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    galleryItem.setAttribute('data-year', item.year);
+                    galleryItem.setAttribute('data-category', item.category);
+                    galleryItem.innerHTML = `
+                        <img src="/api/placeholder/400/300" alt="${item.title}">
+                        <div class="gallery-overlay">
+                            <h3>${item.title}</h3>
+                            <p>${item.desc}</p>
+                        </div>
+                    `;
+                    galleryGrid.appendChild(galleryItem);
+                });
+                
+                currentItems += items.length;
+                
+                // Reinitialize lightGallery with new items
+                lightGallery(document.getElementById('galleryGrid'), {
+                    selector: '.gallery-item',
+                    download: false,
+                    share: false,
+                    actualSize: false
+                });
+                
+                // Hide load more button if we've reached max items (for demo)
+                if (currentItems >= 12) {
+                    loadBtn.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
